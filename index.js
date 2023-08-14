@@ -13,11 +13,11 @@ const key = process.env.KEY
 // console.log(key);
 //middle Wares
 app.use(cors(
-    // {
-    //     origin:['http://localhost:5173'],
-    //     methods:['GET','POST'],
-    //     credentials : true
-    // }
+    {
+        origin:['https://master--unique-pixie-fcb003.netlify.app/'],
+        methods:['GET','POST'],
+        credentials : true
+    }
 ))
 app.use(express.json())
 app.use(cookieParser())
