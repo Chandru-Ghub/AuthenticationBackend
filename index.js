@@ -14,7 +14,7 @@ const key = process.env.KEY
 //middle Wares
 app.use(cors(
     {
-        origin:['https://master--unique-pixie-fcb003.netlify.app/'],
+        origin:['https://unique-pixie-fcb003.netlify.app'],
         methods:['GET','POST'],
         credentials : true
     }
