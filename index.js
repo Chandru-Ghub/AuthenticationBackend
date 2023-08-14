@@ -89,7 +89,7 @@ app.post('/verify', async(req,res)=>{
                     {email: register.email},
                     key,
 
-                    {expiresIn:'1d'})
+                    {expiresIn:'2d'})
                 res.cookie('token',token)
                 res.json('Success')
                 console.log('true');
@@ -120,7 +120,7 @@ app.post('/forgot-password',(req,res)=>{
             res.json('n')
         }
         else{
-        const token = jwt.sign({id:user._id},key,{expiresIn:'1d'})
+        const token = jwt.sign({id:user._id},key,{expiresIn:'2d'})
 
         var nodemailer = require('nodemailer');
        
