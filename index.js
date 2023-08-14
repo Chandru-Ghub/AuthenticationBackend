@@ -7,14 +7,17 @@ const userSchema = require('./model/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
+const dotenv = require('dotenv').config()
 
+const key = process.env.KEY
+console.log(key);
 //middle Wares
 app.use(cors(
-    // {
-    //     origin:['http://localhost:5173'],
-    //     methods:['GET','POST'],
-    //     credentials : true
-    // }
+    {
+        origin:['http://localhost:5173'],
+        methods:['GET','POST'],
+        credentials : true
+    }
 ))
 app.use(express.json())
 app.use(cookieParser())
@@ -38,7 +41,7 @@ const verifyUser = (req,res,next)=>{
     if(!tooken){
         return res.json('The token was not available')
     }else{
-        jwt.verify(tooken,'passkey',(err,decoded)=>{
+        jwt.verify(tooken,key,(err,decoded)=>{
             if(err) return res.json('Wrong token')
             next()
         })
@@ -84,7 +87,7 @@ app.post('/verify', async(req,res)=>{
             if(register){
                 const token = jwt.sign(
                     {email: register.email},
-                    'passkey',
+                    key,
 
                     {expiresIn:'1d'})
                 res.cookie('token',token)
@@ -117,7 +120,7 @@ app.post('/forgot-password',(req,res)=>{
             res.json('n')
         }
         else{
-        const token = jwt.sign({id:user._id},'passkey',{expiresIn:'1d'})
+        const token = jwt.sign({id:user._id},key,{expiresIn:'1d'})
 
         var nodemailer = require('nodemailer');
        
@@ -162,7 +165,7 @@ app.post('/reset-password/:id/:token',(req,res)=>{
     const {id,token} = req.params
     const {password} = req.body
 
-    jwt.verify(token,'passkey',(err,decoded)=>{
+    jwt.verify(token,key,(err,decoded)=>{
         if(err){
             res.json(err)
         }else{
