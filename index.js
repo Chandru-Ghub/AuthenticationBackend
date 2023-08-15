@@ -139,7 +139,7 @@ app.post('/forgot-password',(req,res)=>{
             from: 'chandrumech455@gmail.com',
             to: 'chandruinfo455@gmail.com',
             subject: 'Reset your password',
-            text: `http://localhost:5173/reset_password/${user._id}/${token}/`
+            text: `https://unique-pixie-fcb003.netlify.app/reset_password/${user._id}/${token}/`
         };
 
 
